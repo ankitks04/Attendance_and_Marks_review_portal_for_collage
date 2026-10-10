@@ -14,6 +14,12 @@ const DB_FILE = path.join(__dirname, 'database.db');
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Always navigate to login page first on opening the root URL
+app.get('/', (req, res) => {
+  res.redirect('/login.html');
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connect to SQLite Database

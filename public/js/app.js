@@ -28,6 +28,12 @@ function initUserSession() {
   if (userStr) {
     try { user = JSON.parse(userStr); } catch (e) {}
   }
+
+  if (!user) {
+    window.location.href = 'login.html';
+    return;
+  }
+
   state.currentUser = user;
 
   const isStudent = user && user.role === 'student';

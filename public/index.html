@@ -6,6 +6,12 @@
   <title>College Attendance &amp; Performance Analytics System</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2315803D'><path d='M12 3L1 9l11 6 9-4.91V17h2V9L12 3z'/></svg>">
+  <script>
+    // Enforce login first: always navigate to login page if not authenticated
+    if (!localStorage.getItem('currentUser')) {
+      window.location.replace('login.html');
+    }
+  </script>
 </head>
 <body>
 
@@ -111,7 +117,7 @@
             </button>
           </div>
 
-          <div class="profile-pill" id="profilePill" onclick="window.location.href='login.html'" title="Click to switch user account">
+          <div class="profile-pill" id="profilePill" title="Active User Session" style="cursor: default;">
             <div class="avatar-circle" id="userAvatar">AS</div>
             <div class="profile-info">
               <span class="profile-name" id="userNameDisplay">Prof. A. K. Sharma</span>

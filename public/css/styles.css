@@ -380,7 +380,7 @@ body {
   background-color: var(--bg-app);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-pill);
-  cursor: pointer;
+  cursor: default;
 }
 
 .avatar-circle {
