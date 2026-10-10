@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Attendance &amp; Performance Analytics System</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2315803D'><path d='M12 3L1 9l11 6 9-4.91V17h2V9L12 3z'/></svg>">
+</head>
+<body>
+
+  <!-- Printable Official Letterhead Header (Only displayed during printing) -->
+  <div class="print-only-header">
+    <h1>Department of Computer Science &amp; Engineering</h1>
+    <p>College Attendance &amp; Academic Performance Analytics System — Official Evaluation Report</p>
+    <p>Academic Year: 2026-2027 | Report Generated: <span id="printDateStamp">October 10, 2026</span></p>
+  </div>
+
+  <div class="app-container">
+
+    <!-- -----------------------------------------------------------
+         1. FIXED LEFT SIDEBAR
+         ----------------------------------------------------------- -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-icon" title="Graduation Cap">
+          <!-- Graduation Cap SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Student Analytics</h1>
+          <p>College Portal</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Navigation Menu</div>
+
+        <a class="nav-item active" data-page="dashboard">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="nav-item" data-page="students">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          <span>Students</span>
+          <span class="sidebar-badge" id="sidebarRiskBadge">6 At Risk</span>
+        </a>
+
+        <a class="nav-item" data-page="attendance">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span>Attendance</span>
+        </a>
+
+        <a class="nav-item" data-page="marks">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Marks &amp; Results</span>
+        </a>
+
+        <a class="nav-item" data-page="analytics">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Analytics &amp; Reports</span>
+        </a>
+
+        <a class="nav-item" data-page="about">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>About Project</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status-box">
+          <div class="status-indicator"></div>
+          <div class="status-info">
+            <h4>SQLite Database</h4>
+            <p>Persistent &amp; Connected</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- -----------------------------------------------------------
+         2. MAIN WRAPPER (TOPBAR + CONTENT)
+         ----------------------------------------------------------- -->
+    <div class="main-wrapper">
+
+      <!-- Sticky Top Navigation Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" id="mobileMenuToggle" title="Toggle Navigation">
+            <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="page-header-text">
+            <h2 id="topbarPageTitle">Dashboard Overview</h2>
+            <p id="topbarPageSubtitle">Monitor student attendance, academic performance, and progress in one place.</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="search-container">
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" class="search-input" id="globalSearchInput" placeholder="Quick search students...">
+          </div>
+
+          <div class="notification-wrapper">
+            <button class="icon-btn" title="System Notifications" onclick="showToast('System operational: Sample dataset preloaded. 6 students flagged with attendance warning.', 'info')">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              <div class="badge-dot"></div>
+            </button>
+          </div>
+
+          <div class="profile-pill" id="profilePill" onclick="window.location.href='login.html'" title="Click to switch user account">
+            <div class="avatar-circle" id="userAvatar">AS</div>
+            <div class="profile-info">
+              <span class="profile-name" id="userNameDisplay">Prof. A. K. Sharma</span>
+              <span class="profile-role" id="userRoleDisplay">Faculty Administrator</span>
+            </div>
+          </div>
+
+          <button class="btn btn-outline btn-sm" id="logoutBtn" onclick="logoutUser()" title="Logout from system" style="padding: 6px 12px;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="content-area">
+
+        <!-- =======================================================
+             VIEW 1: DASHBOARD OVERVIEW
+             ======================================================= -->
+        <section class="page-view active-view" id="view-dashboard">
+          
+          <!-- Banner Section -->
+          <div class="dashboard-banner">
+            <div class="banner-content">
+              <h2>College Attendance &amp; Performance Analytics</h2>
+              <p>Monitor student attendance, academic performance, and progress in one place.</p>
+            </div>
+            <div class="banner-actions">
+              <button class="btn btn-primary teacher-only-action" onclick="openModal('modalAddStudent')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Student</span>
+              </button>
+              <button class="btn btn-orange teacher-only-action" onclick="openBatchAttendanceModal()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span>Take Attendance</span>
+              </button>
+              <button class="btn btn-outline teacher-only-action" onclick="resetSampleData()" title="Restore Sample Dataset">
+                <span>Reset Sample</span>
+              </button>
+              <span class="badge badge-green student-only-badge" style="display:none; font-size: 13px; padding: 7px 16px;">
+                🎓 Student Portal (View-Only Rights)
+              </span>
+            </div>
+          </div>
+
+          <!-- 4 Statistic Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-title">Total Students</span>
+                <div class="stat-icon green">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statTotalStudents">18</div>
+              <div class="stat-footer">
+                <span class="stat-trend-badge positive">Enrolled</span>
+                <span>Active in 4 departments</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-title">Average Attendance</span>
+                <div class="stat-icon green">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statAvgAttendance">79.4%</div>
+              <div class="stat-footer">
+                <span class="stat-trend-badge positive">Benchmark: ≥75%</span>
+                <span>Across all lecture sessions</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-title">Average Marks</span>
+                <div class="stat-icon green">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statAvgMarks">73.0%</div>
+              <div class="stat-footer">
+                <span class="stat-trend-badge positive">Grade: First Class</span>
+                <span>Evaluated from tests &amp; exams</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-title">Students at Risk</span>
+                <div class="stat-icon orange">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+              </div>
+              <div class="stat-value" id="statStudentsAtRisk" style="color: var(--orange-primary);">6</div>
+              <div class="stat-footer">
+                <span class="stat-trend-badge warning">Action Required</span>
+                <span>Att &lt; 75% or Marks &lt; 50%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row: Attendance Trend & Subject Performance -->
+          <div class="charts-grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <h3>Attendance Trend Over Time</h3>
+                  <p>Daily present percentage across all lecture sessions</p>
+                </div>
+                <span class="badge badge-green">Last 8 Dates</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartAttendanceTrend"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <h3>Subject-wise Performance</h3>
+                  <p>Average marks obtained across core subjects</p>
+                </div>
+                <span class="badge badge-neutral">Class Averages</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartSubjectPerformance"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marks Distribution Chart & Recent Activity -->
+          <div class="charts-grid-3">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <h3>Marks Distribution by Grade Brackets</h3>
+                  <p>Classification into Distinction, First Class, Second Class, Pass &amp; Fail</p>
+                </div>
+                <span class="badge badge-green">Academic Cohort</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartMarksDistribution"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <h3>Recent Activity Log</h3>
+                  <p>Latest database transactions</p>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="fetchDashboardData()">Refresh</button>
+              </div>
+              <div class="table-container" style="max-height: 280px; overflow-y: auto;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Action</th>
+                      <th>Description</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbodyRecentActivity">
+                    <!-- Dynamic Activity Rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Students Needing Attention (Low Attendance or Low Marks) -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 style="color: var(--orange-primary);">⚠️ Students Needing Academic Support &amp; Counseling</h3>
+                <p>Identified by Attendance &lt; 75% or Average Marks &lt; 50%</p>
+              </div>
+              <button class="btn btn-orange btn-sm" onclick="navigateTo('analytics')">
+                View Risk Analysis
+              </button>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Attendance %</th>
+                    <th>Avg Marks</th>
+                    <th>Risk Factor</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyDashboardAtRisk">
+                  <!-- Dynamic At-Risk Rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- =======================================================
+             VIEW 2: STUDENTS MANAGEMENT
+             ======================================================= -->
+        <section class="page-view" id="view-students">
+          
+          <div class="filter-bar">
+            <div class="filter-group">
+              <input type="text" class="input-control" id="studentSearchInput" placeholder="Search by name, ID, email..." oninput="fetchStudents()" style="width: 220px;">
+              
+              <select class="select-control" id="studentCourseFilter" onchange="fetchStudents()">
+                <option value="All">All Courses</option>
+                <option value="B.Tech CSE">B.Tech CSE</option>
+                <option value="B.Tech AI &amp; DS">B.Tech AI &amp; DS</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Sc IT">B.Sc IT</option>
+              </select>
+
+              <select class="select-control" id="studentSemesterFilter" onchange="fetchStudents()">
+                <option value="All">All Semesters</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+              </select>
+
+              <select class="select-control" id="studentStatusFilter" onchange="fetchStudents()">
+                <option value="All">All Performance Statuses</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Needs Improvement">Needs Improvement</option>
+                <option value="At Risk">At Risk Only</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <span class="badge badge-neutral" id="studentCountBadge">18 Records</span>
+              <button class="btn btn-primary btn-sm teacher-only-action" onclick="openModal('modalAddStudent')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Student</span>
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportData('students')">
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Student Name</th>
+                  <th>Course/Class</th>
+                  <th>Semester</th>
+                  <th>Attendance %</th>
+                  <th>Average Marks</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyStudents">
+                <!-- Dynamically Rendered Students -->
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+
+        <!-- =======================================================
+             VIEW 3: ATTENDANCE MANAGEMENT
+             ======================================================= -->
+        <section class="page-view" id="view-attendance">
+          
+          <div class="filter-bar">
+            <div class="filter-group">
+              <input type="date" class="input-control" id="attDateFilter" onchange="fetchAttendance()">
+
+              <select class="select-control" id="attCourseFilter" onchange="fetchAttendance()">
+                <option value="All">All Courses</option>
+                <option value="B.Tech CSE">B.Tech CSE</option>
+                <option value="B.Tech AI &amp; DS">B.Tech AI &amp; DS</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Sc IT">B.Sc IT</option>
+              </select>
+
+              <select class="select-control" id="attSemesterFilter" onchange="fetchAttendance()">
+                <option value="All">All Semesters</option>
+                <option value="1">Sem 1</option>
+                <option value="2">Sem 2</option>
+                <option value="3">Sem 3</option>
+                <option value="4">Sem 4</option>
+                <option value="5">Sem 5</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <button class="btn btn-primary btn-sm teacher-only-action" onclick="openBatchAttendanceModal()">
+                <span>Take Batch Attendance</span>
+              </button>
+              <button class="btn btn-outline btn-sm teacher-only-action" onclick="openModal('modalSingleAttendance')">
+                <span>Mark Single Entry</span>
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportData('attendance')">
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Attendance Shortage Alert Box (Attendance < 75%) -->
+          <div id="shortageListContainer" style="margin-bottom: 24px;"></div>
+
+          <!-- Student-wise Overall Attendance Progress Table -->
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3>Overall Student Attendance Percentages</h3>
+                <p>Cumulative summary calculated from database records</p>
+              </div>
+              <span class="badge badge-green">Automatic Calculation</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Course &amp; Class</th>
+                    <th>Present / Total Sessions</th>
+                    <th>Absent</th>
+                    <th>Attendance %</th>
+                    <th>Status Badge</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyAttendanceSummary">
+                  <!-- Dynamic Attendance Summary -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Daily Attendance Records Log Table -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3>Detailed Daily Attendance Logs</h3>
+                <p>Individual session records filterable by date</p>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyAttendanceLogs">
+                  <!-- Dynamic Attendance Logs -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- =======================================================
+             VIEW 4: MARKS AND RESULTS
+             ======================================================= -->
+        <section class="page-view" id="view-marks">
+          
+          <div class="filter-bar">
+            <div class="filter-group">
+              <select class="select-control" id="marksSubjectFilter" onchange="fetchMarks()">
+                <option value="All">All Subjects</option>
+                <option value="Data Structures">Data Structures</option>
+                <option value="Database Systems">Database Systems</option>
+                <option value="Operating Systems">Operating Systems</option>
+                <option value="Computer Networks">Computer Networks</option>
+                <option value="Web Technologies">Web Technologies</option>
+                <option value="Machine Learning">Machine Learning</option>
+                <option value="Software Engineering">Software Engineering</option>
+              </select>
+
+              <select class="select-control" id="marksExamFilter" onchange="fetchMarks()">
+                <option value="All">All Exam Types</option>
+                <option value="Internal Test 1">Internal Test 1</option>
+                <option value="Midterm Exam">Midterm Exam</option>
+                <option value="Assignment">Assignment</option>
+              </select>
+
+              <!-- Passing Threshold Configurator -->
+              <div style="display: flex; align-items: center; gap: 8px; background-color: var(--bg-subtle); padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid var(--green-border);">
+                <label for="passingThresholdSlider" style="font-size: 11.5px; font-weight: 600; color: var(--green-text);">Passing Threshold:</label>
+                <input type="range" id="passingThresholdSlider" min="30" max="60" value="40" step="5" oninput="handleThresholdChange(this.value)" style="width: 80px; accent-color: var(--green-primary); cursor: pointer;">
+                <span id="thresholdDisplay" style="font-weight: 700; color: var(--green-primary); font-size: 12px;">40%</span>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <span class="badge badge-neutral" id="marksCountBadge">Exam Records</span>
+              <button class="btn btn-primary btn-sm teacher-only-action" onclick="openModal('modalAddMarks')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>Add Marks Entry</span>
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportData('marks')">
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Student Name</th>
+                  <th>Subject</th>
+                  <th>Exam Type</th>
+                  <th>Marks (Obt / Max)</th>
+                  <th>Percentage</th>
+                  <th>Standing</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyMarks">
+                <!-- Dynamically Rendered Marks -->
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+
+        <!-- =======================================================
+             VIEW 5: ANALYTICS & REPORTS
+             ======================================================= -->
+        <section class="page-view" id="view-analytics">
+          
+          <div class="filter-bar">
+            <div class="filter-group">
+              <h3 style="font-size: 15px; font-weight: 700; color: var(--green-primary);">Statistical &amp; Regression Analytics Engine</h3>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-outline btn-sm" onclick="printReport()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                <span>Print Official Report</span>
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportData('analytics-summary')">
+                <span>Export Analytics CSV</span>
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="exportData('students')">
+                <span>Export Students CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Statistical Metrics Grid (Mean, Median, Mode, Variance, StdDev, Pearson r, R2) -->
+          <div class="stats-summary-grid">
+            <div class="stat-metric-box">
+              <span class="metric-label">Mean Marks (μ)</span>
+              <span class="metric-value" id="analyticsMeanMarks">--</span>
+              <span class="metric-desc">Arithmetic average score of student cohort</span>
+            </div>
+
+            <div class="stat-metric-box">
+              <span class="metric-label">Median Marks</span>
+              <span class="metric-value" id="analyticsMedianMarks">--</span>
+              <span class="metric-desc">50th percentile (central tendency)</span>
+            </div>
+
+            <div class="stat-metric-box">
+              <span class="metric-label">Marks Standard Deviation (σ)</span>
+              <span class="metric-value" id="analyticsStdDevMarks">--</span>
+              <span class="metric-desc">Dispersion of marks around the mean</span>
+            </div>
+
+            <div class="stat-metric-box">
+              <span class="metric-label">Variance (σ²)</span>
+              <span class="metric-value" id="analyticsVarianceMarks">--</span>
+              <span class="metric-desc">Sample variance of student scores</span>
+            </div>
+
+            <div class="stat-metric-box">
+              <span class="metric-label">Mean Class Attendance</span>
+              <span class="metric-value" id="analyticsMeanAttendance">--</span>
+              <span class="metric-desc">Overall average lecture attendance</span>
+            </div>
+
+            <div class="stat-metric-box">
+              <span class="metric-label">Pearson Correlation (r)</span>
+              <span class="metric-value" id="analyticsPearsonR" style="color: var(--orange-primary);">--</span>
+              <span class="metric-desc">Attendance vs Marks linear relationship</span>
+            </div>
+          </div>
+
+          <!-- Linear Regression Callout & Interactive Predictor -->
+          <div class="regression-highlight-box">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
+              <div>
+                <span class="badge badge-green">Simple Linear Regression Model</span>
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--text-main); margin-top: 6px;">
+                  Model: <span class="regression-equation-pill" id="regressionEquationDisplay">Marks = m × Attendance + c</span>
+                </h3>
+                <p id="regressionInterpretation" style="color: var(--text-muted); font-size: 13.5px; margin-top: 4px;">
+                  Calculating relationship...
+                </p>
+                <div id="regressionFormulaMath" style="font-size: 12px; color: var(--text-muted); margin-top: 8px;"></div>
+              </div>
+
+              <!-- Interactive Marks Prediction Tool -->
+              <div style="background-color: #FFFFFF; border: 1px solid var(--green-border); border-radius: var(--radius-md); padding: 16px; min-width: 280px;">
+                <h4 style="font-size: 13px; font-weight: 700; color: var(--green-primary); margin-bottom: 8px;">
+                  Interactive Marks Predictor
+                </h4>
+                <div style="display: flex; gap: 8px;">
+                  <input type="number" id="predictorAttendanceInput" class="input-control" placeholder="Enter Att. % (e.g. 85)" min="0" max="100" style="width: 150px;">
+                  <button class="btn btn-primary btn-sm" onclick="calculatePredictedMarks()">Predict</button>
+                </div>
+                <div id="predictorMarksResult" style="margin-top: 10px; font-size: 12.5px; color: var(--text-main);">
+                  Enter expected attendance % to project marks.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visualizations Grid: Scatter Regression & Distribution Charts -->
+          <div class="charts-grid-2">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <h3>Linear Regression &amp; Correlation Plot</h3>
+                  <p>Attendance (%) vs Academic Marks (%) with Line of Best Fit</p>
+                </div>
+                <span class="badge badge-orange">Trendline</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartRegressionScatter"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title-group">
+                  <h3>Attendance Distribution Proportions</h3>
+                  <p>Breakdown across Attendance Compliance Brackets</p>
+                </div>
+                <span class="badge badge-green">Compliance</span>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chartAnalyticsAttendanceDoughnut"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject Performance Ranking Table -->
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3>Subject-wise Academic Performance Ranking</h3>
+                <p>Curriculum evaluation to identify difficult vs scoring subjects</p>
+              </div>
+              <span class="badge badge-neutral">Curriculum Analytics</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Subject Title</th>
+                    <th>Average Score</th>
+                    <th>Sample Size</th>
+                    <th>Difficulty Classification</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodySubjectRanking">
+                  <!-- Dynamic Subject Ranking -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Students Requiring Academic Attention -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 style="color: var(--orange-primary);">Academic Intervention &amp; Remedial Recommendation List</h3>
+                <p>Automated flagging for academic counseling and mentoring</p>
+              </div>
+              <span class="badge badge-orange">Intervention Priority</span>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Name &amp; Course</th>
+                    <th>Attendance %</th>
+                    <th>Average Marks</th>
+                    <th>Identified Shortfall &amp; Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyAttentionStudents">
+                  <!-- Dynamic High Attention List -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- =======================================================
+             VIEW 6: ABOUT PROJECT & VIVA DOCUMENTATION
+             ======================================================= -->
+        <section class="page-view" id="view-about">
+          
+          <div class="card" style="margin-bottom: 24px;">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h2 style="font-size: 20px; color: var(--green-primary); font-weight: 700;">
+                  College Attendance &amp; Performance Analytics System
+                </h2>
+                <p>Final Year / Semester Academic Capstone Project Documentation</p>
+              </div>
+              <span class="badge badge-green">Complete Full-Stack Application</span>
+            </div>
+
+            <div style="font-size: 14px; line-height: 1.7; color: var(--text-main);">
+              <h3 style="font-size: 16px; margin: 16px 0 8px 0; color: var(--green-primary);">1. Problem Statement &amp; Objective</h3>
+              <p>
+                In academic institutions, manual attendance and score tracking hinder early detection of academic distress. 
+                This system bridges that gap by providing an end-to-end full-stack analytics platform that correlates student attendance 
+                with examination performance using <strong>statistical regression modeling</strong>, <strong>Pearson correlation analysis</strong>, 
+                and <strong>automated academic risk identification</strong>.
+              </p>
+
+              <h3 style="font-size: 16px; margin: 20px 0 8px 0; color: var(--green-primary);">2. System Architecture</h3>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0;">
+                <div style="background: var(--bg-app); border: 1px solid var(--border-color); padding: 14px; border-radius: var(--radius-md);">
+                  <h4 style="color: var(--green-primary); font-size: 13px; font-weight: 700; margin-bottom: 4px;">Frontend Layer</h4>
+                  <p style="font-size: 12px; color: var(--text-muted);">
+                    HTML5, Responsive CSS3 Design System with Light Cream/White Cards &amp; Green/Warm Orange accents, Chart.js for data visualization.
+                  </p>
+                </div>
+                <div style="background: var(--bg-app); border: 1px solid var(--border-color); padding: 14px; border-radius: var(--radius-md);">
+                  <h4 style="color: var(--green-primary); font-size: 13px; font-weight: 700; margin-bottom: 4px;">Backend Controller</h4>
+                  <p style="font-size: 12px; color: var(--text-muted);">
+                    Node.js &amp; Express RESTful API server handling Student CRUD, Batch Attendance, Marks recording, CSV exports, and Activity logging.
+                  </p>
+                </div>
+                <div style="background: var(--bg-app); border: 1px solid var(--border-color); padding: 14px; border-radius: var(--radius-md);">
+                  <h4 style="color: var(--green-primary); font-size: 13px; font-weight: 700; margin-bottom: 4px;">Database &amp; Math Engine</h4>
+                  <p style="font-size: 12px; color: var(--text-muted);">
+                    SQLite persistent relational database (`database.db`) paired with an embedded Statistical &amp; Regression Analytics Engine.
+                  </p>
+                </div>
+              </div>
+
+              <h3 style="font-size: 16px; margin: 20px 0 8px 0; color: var(--green-primary);">3. Mathematical Models &amp; Statistical Formulas</h3>
+              <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                <li>
+                  <strong>Mean (Average):</strong> $\bar{x} = \frac{\sum_{i=1}^n x_i}{n}$ — Measures the central tendency of test scores.
+                </li>
+                <li>
+                  <strong>Standard Deviation:</strong> $\sigma = \sqrt{\frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n - 1}}$ — Quantifies variability among student marks.
+                </li>
+                <li>
+                  <strong>Pearson Correlation Coefficient ($r$):</strong>
+                  $$r = \frac{n \sum (xy) - \sum x \sum y}{\sqrt{[n \sum x^2 - (\sum x)^2][n \sum y^2 - (\sum y)^2]}}$$
+                  Measures the linear strength between class attendance and academic marks (observed $r \approx 0.94$).
+                </li>
+                <li>
+                  <strong>Simple Linear Regression Equation:</strong>
+                  $$\hat{y} = mx + c \quad \text{where } m = \frac{n \sum xy - \sum x \sum y}{n \sum x^2 - (\sum x)^2}, \quad c = \bar{y} - m\bar{x}$$
+                  Predicts the expected score ($y$) given a student's attendance percentage ($x$).
+                </li>
+              </ul>
+
+              <h3 style="font-size: 16px; margin: 20px 0 8px 0; color: var(--green-primary);">4. Viva Voce / Presentation FAQs</h3>
+              <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                <div style="background-color: var(--bg-app); padding: 12px 16px; border-radius: var(--radius-sm); border-left: 3px solid var(--green-primary);">
+                  <strong>Q: Why is attendance modeled as the independent variable ($x$)?</strong>
+                  <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">
+                    Attendance occurs prior to exams and directly impacts knowledge retention and test results, making attendance the independent variable ($x$) and marks the dependent variable ($y$).
+                  </p>
+                </div>
+                <div style="background-color: var(--bg-app); padding: 12px 16px; border-radius: var(--radius-sm); border-left: 3px solid var(--orange-primary);">
+                  <strong>Q: How does the system handle the 75% attendance rule?</strong>
+                  <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">
+                    Students with overall attendance below 75% are dynamically identified and added to the Attendance Shortage List with an exact deficit count showing how many consecutive classes they must attend to regain eligibility.
+                  </p>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 12px; color: var(--text-muted);">
+                  Built for College Academic Evaluation • Zero external credential dependencies
+                </span>
+                <button class="btn btn-outline btn-sm teacher-only-action" onclick="clearAllData()">
+                  Clear Database (Fresh Start)
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- ===========================================================
+       MODALS
+       =========================================================== -->
+
+  <!-- Modal 1: Add New Student -->
+  <div class="modal-backdrop" id="modalAddStudent">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add New Student</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddStudent')">&times;</button>
+      </div>
+      <form id="formAddStudent" onsubmit="handleAddStudentSubmit(event)">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="addStuCode">Student ID / Roll No</label>
+              <input type="text" id="addStuCode" placeholder="e.g. STU119 (Auto if blank)">
+              <span class="form-help">Leave empty to auto-generate</span>
+            </div>
+            <div class="form-group">
+              <label for="addStuName">Full Name *</label>
+              <input type="text" id="addStuName" placeholder="e.g. Aarav Sharma" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="addStuEmail">College Email *</label>
+              <input type="email" id="addStuEmail" placeholder="student@college.edu" required>
+            </div>
+            <div class="form-group">
+              <label for="addStuPhone">Phone Number</label>
+              <input type="tel" id="addStuPhone" placeholder="10-digit number">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="addStuCourse">Course / Branch *</label>
+              <select id="addStuCourse" required>
+                <option value="B.Tech CSE">B.Tech CSE</option>
+                <option value="B.Tech AI &amp; DS">B.Tech AI &amp; DS</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Sc IT">B.Sc IT</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addStuSemester">Current Semester *</label>
+              <select id="addStuSemester" required>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4" selected>Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addStuGender">Gender</label>
+            <select id="addStuGender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalAddStudent')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Edit Student Details -->
+  <div class="modal-backdrop" id="modalEditStudent">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Edit Student Details</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalEditStudent')">&times;</button>
+      </div>
+      <form id="formEditStudent" onsubmit="handleEditStudentSubmit(event)">
+        <input type="hidden" id="editStuId">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="editStuCode">Student ID / Roll No *</label>
+              <input type="text" id="editStuCode" required>
+            </div>
+            <div class="form-group">
+              <label for="editStuName">Full Name *</label>
+              <input type="text" id="editStuName" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="editStuEmail">College Email *</label>
+              <input type="email" id="editStuEmail" required>
+            </div>
+            <div class="form-group">
+              <label for="editStuPhone">Phone Number</label>
+              <input type="tel" id="editStuPhone">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="editStuCourse">Course / Branch *</label>
+              <select id="editStuCourse" required>
+                <option value="B.Tech CSE">B.Tech CSE</option>
+                <option value="B.Tech AI &amp; DS">B.Tech AI &amp; DS</option>
+                <option value="BCA">BCA</option>
+                <option value="B.Sc IT">B.Sc IT</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editStuSemester">Current Semester *</label>
+              <select id="editStuSemester" required>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="editStuGender">Gender</label>
+            <select id="editStuGender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalEditStudent')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: View Full Student Profile & Academic Transcript -->
+  <div class="modal-backdrop" id="modalViewStudent">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3 id="viewStuName">Student Profile</h3>
+          <p id="viewStuCode" style="font-size: 12px; color: var(--text-muted);">STU101 • B.Tech CSE</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modalViewStudent')">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Profile Header Stats -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px;">
+          <div style="background: var(--bg-app); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Attendance Rate</div>
+            <div id="viewStuAttPct" style="font-size: 20px; font-weight: 700; color: var(--green-primary);">0%</div>
+            <div id="viewStuAttSessions" style="font-size: 11px; color: var(--text-muted);">0 / 0 Sessions</div>
+          </div>
+          <div style="background: var(--bg-app); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Average Marks</div>
+            <div id="viewStuMarksPct" style="font-size: 20px; font-weight: 700; color: var(--green-primary);">0%</div>
+            <div id="viewStuMarksScore" style="font-size: 11px; color: var(--text-muted);">0 / 0 Points</div>
+          </div>
+          <div style="background: var(--bg-app); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Email Address</div>
+            <div id="viewStuEmail" style="font-size: 12px; font-weight: 600; color: var(--text-main); word-break: break-all;">-</div>
+          </div>
+          <div style="background: var(--bg-app); padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Phone / Contact</div>
+            <div id="viewStuPhone" style="font-size: 13px; font-weight: 600; color: var(--text-main);">-</div>
+            <div id="viewStuGender" style="font-size: 11px; color: var(--text-muted);">-</div>
+          </div>
+        </div>
+
+        <!-- Academic Subject Marks Breakdown Table -->
+        <h4 style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+          Academic Examination Scores
+        </h4>
+        <div class="table-container" style="margin-bottom: 20px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Exam Component</th>
+                <th>Score (Obtained / Max)</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody id="viewStuMarksTbody">
+              <!-- Subject Marks Rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Attendance History Log -->
+        <h4 style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+          Recent Attendance Records
+        </h4>
+        <div class="table-container" style="max-height: 200px; overflow-y: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Status</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="viewStuAttTbody">
+              <!-- Attendance History Rows -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <span id="viewStuCreated" style="margin-right: auto; font-size: 11.5px; color: var(--text-muted);"></span>
+        <button class="btn btn-outline" onclick="closeModal('modalViewStudent')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Add Academic Marks Entry -->
+  <div class="modal-backdrop" id="modalAddMarks">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Record Academic Marks</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalAddMarks')">&times;</button>
+      </div>
+      <form id="formAddMarks" onsubmit="handleAddMarksSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="marksStudentSelect">Select Student *</label>
+            <select id="marksStudentSelect" required>
+              <option value="">-- Choose Student --</option>
+            </select>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="marksSubjectInput">Subject Title *</label>
+              <input type="text" id="marksSubjectInput" placeholder="e.g. Data Structures" required>
+            </div>
+            <div class="form-group">
+              <label for="marksExamTypeSelect">Exam Type *</label>
+              <select id="marksExamTypeSelect" required>
+                <option value="Internal Test 1">Internal Test 1</option>
+                <option value="Internal Test 2">Internal Test 2</option>
+                <option value="Midterm Exam">Midterm Exam</option>
+                <option value="Assignment">Assignment</option>
+                <option value="Semester Final">Semester Final</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="marksObtainedInput">Marks Obtained *</label>
+              <input type="number" id="marksObtainedInput" step="0.5" min="0" placeholder="e.g. 21.5" required>
+            </div>
+            <div class="form-group">
+              <label for="marksMaxInput">Maximum Allowed Marks *</label>
+              <input type="number" id="marksMaxInput" step="1" min="1" value="25" placeholder="e.g. 25, 50, 100" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="marksSemesterInput">Semester</label>
+            <input type="number" id="marksSemesterInput" min="1" max="8" value="4">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalAddMarks')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Marks</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Mark Single Attendance -->
+  <div class="modal-backdrop" id="modalSingleAttendance">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Mark Single Attendance Entry</h3>
+        <button class="modal-close-btn" onclick="closeModal('modalSingleAttendance')">&times;</button>
+      </div>
+      <form id="formSingleAttendance" onsubmit="handleSingleAttendanceSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="attSingleStudentSelect">Select Student *</label>
+            <select id="attSingleStudentSelect" required>
+              <option value="">-- Choose Student --</option>
+            </select>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="attSingleDateInput">Date *</label>
+              <input type="date" id="attSingleDateInput" required>
+            </div>
+            <div class="form-group">
+              <label for="attSingleStatusSelect">Status *</label>
+              <select id="attSingleStatusSelect" required>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="attSingleSubjectInput">Subject / Session</label>
+            <input type="text" id="attSingleSubjectInput" value="General Attendance" placeholder="e.g. Data Structures">
+          </div>
+
+          <div class="form-group">
+            <label for="attSingleRemarksInput">Remarks / Note</label>
+            <input type="text" id="attSingleRemarksInput" placeholder="Optional (e.g. Medical leave, On-duty)">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalSingleAttendance')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Attendance</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 6: Batch Attendance Sheet -->
+  <div class="modal-backdrop" id="modalBatchAttendance">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3>Batch Attendance Marking Sheet</h3>
+          <p style="font-size: 12px; color: var(--text-muted);">Quickly mark attendance for an entire classroom roster</p>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('modalBatchAttendance')">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="filter-bar" style="margin-bottom: 16px;">
+          <div class="filter-group">
+            <input type="date" class="input-control" id="batchAttDate">
+            <select class="select-control" id="batchAttCourseFilter" onchange="populateBatchAttendanceGrid()">
+              <option value="All">All Courses</option>
+              <option value="B.Tech CSE">B.Tech CSE</option>
+              <option value="B.Tech AI &amp; DS">B.Tech AI &amp; DS</option>
+              <option value="BCA">BCA</option>
+              <option value="B.Sc IT">B.Sc IT</option>
+            </select>
+            <input type="text" class="input-control" id="batchAttSubject" value="General Attendance" placeholder="Subject" style="width: 160px;">
+          </div>
+          <div class="filter-group">
+            <button type="button" class="btn btn-outline btn-sm" onclick="setAllBatchStatus('Present')">
+              Mark All Present
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="setAllBatchStatus('Absent')">
+              Mark All Absent
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container" style="max-height: 380px; overflow-y: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Quick Toggle</th>
+                <th>Current Status</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyBatchAttendance">
+              <!-- Batch Roster Rows -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeModal('modalBatchAttendance')">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="handleBatchAttendanceSubmit()">Save Batch Attendance</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts: Local Cached Chart.js, Charts Controller, App Logic -->
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
