@@ -7,7 +7,7 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ankit",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
