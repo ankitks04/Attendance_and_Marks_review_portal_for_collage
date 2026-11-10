@@ -76,7 +76,7 @@
         </a>
       </nav>
 
-      <div class="sidebar-footer">
+      <div class="sidebar-footer" style="display: none;">
         <div class="system-status-box">
           <div class="status-indicator"></div>
           <div class="status-info">
@@ -866,7 +866,7 @@
             </div>
             <div class="form-group">
               <label for="addStuName">Full Name *</label>
-              <input type="text" id="addStuName" placeholder="e.g. Aarav Sharma" required>
+              <input type="text" id="addStuName" placeholder="e.g. Aarav Sharma" required pattern="[A-Za-z\s]+" title="Name must contain only alphabets" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
             </div>
           </div>
 
@@ -877,7 +877,7 @@
             </div>
             <div class="form-group">
               <label for="addStuPhone">Phone Number</label>
-              <input type="tel" id="addStuPhone" placeholder="10-digit number">
+              <input type="tel" id="addStuPhone" placeholder="10-digit number" pattern="[0-9]*" title="Phone number must contain only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
             </div>
           </div>
 
@@ -940,7 +940,7 @@
             </div>
             <div class="form-group">
               <label for="editStuName">Full Name *</label>
-              <input type="text" id="editStuName" required>
+              <input type="text" id="editStuName" required pattern="[A-Za-z\s]+" title="Name must contain only alphabets" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
             </div>
           </div>
 
@@ -951,7 +951,7 @@
             </div>
             <div class="form-group">
               <label for="editStuPhone">Phone Number</label>
-              <input type="tel" id="editStuPhone">
+              <input type="tel" id="editStuPhone" pattern="[0-9]*" title="Phone number must contain only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
             </div>
           </div>
 

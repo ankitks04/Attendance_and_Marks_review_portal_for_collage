@@ -148,7 +148,6 @@ async function initializeDatabase() {
 
   // Seed default teacher and student credentials
   await dbRun(`INSERT OR IGNORE INTO users (username, password, role, name, student_id) VALUES ('teacher', 'teacher123', 'teacher', 'Prof. A. K. Sharma', NULL)`);
-  await dbRun(`INSERT OR IGNORE INTO users (username, password, role, name, student_id) VALUES ('admin', 'admin123', 'teacher', 'Prof. A. K. Sharma (Admin)', NULL)`);
   await dbRun(`INSERT OR IGNORE INTO users (username, password, role, name, student_id) VALUES ('student', 'student123', 'student', 'Aarav Sharma', 1)`);
   await dbRun(`INSERT OR IGNORE INTO users (username, password, role, name, student_id) VALUES ('student1', 'pass123', 'student', 'John Doe', 1)`);
 
@@ -271,12 +270,6 @@ app.get('/api/users/demo-credentials', (req, res) => {
         password: 'teacher123',
         role: 'teacher',
         name: 'Prof. A. K. Sharma (Teacher)'
-      },
-      admin: {
-        username: 'admin',
-        password: 'admin123',
-        role: 'teacher',
-        name: 'Administrator (Teacher)'
       },
       student: {
         username: 'student',
@@ -440,6 +433,14 @@ app.post('/api/students', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Name, Email, Course, and Semester are required.' });
     }
 
+    if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
+      return res.status(400).json({ success: false, message: 'Name must contain only alphabet values.' });
+    }
+
+    if (phone && phone.trim() !== '' && !/^\d+$/.test(phone.trim())) {
+      return res.status(400).json({ success: false, message: 'Phone number must contain only numeric values.' });
+    }
+
     // Auto-generate student code if omitted
     let finalCode = student_code;
     if (!finalCode || finalCode.trim() === '') {
@@ -475,6 +476,14 @@ app.put('/api/students/:id', async (req, res) => {
 
     if (!name || !email || !course || !semester) {
       return res.status(400).json({ success: false, message: 'Name, Email, Course, and Semester are required.' });
+    }
+
+    if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
+      return res.status(400).json({ success: false, message: 'Name must contain only alphabet values.' });
+    }
+
+    if (phone && phone.trim() !== '' && !/^\d+$/.test(phone.trim())) {
+      return res.status(400).json({ success: false, message: 'Phone number must contain only numeric values.' });
     }
 
     // Check code collision with other students

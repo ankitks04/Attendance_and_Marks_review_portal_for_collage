@@ -15,8 +15,7 @@ The portal features role-based authentication with dedicated **Teacher / Faculty
 
 | Role | Username | Password | Access Rights / Profile |
 | :--- | :--- | :--- | :--- |
-| 👨‍🏫 **Teacher / Faculty** | `teacher` | `teacher123` | Full administrative control: Add/Edit/Delete students, Take Batch Attendance, Enter Marks, Configure Pass Threshold |
-| 👨‍💼 **Administrator** | `admin` | `admin123` | Full department administrator rights |
+| 👨‍🏫 **Teacher / Faculty** | `teacher` | `teacher123` | Full control: Add/Edit/Delete students, Take Batch Attendance, Enter Marks, Configure Pass Threshold |
 | 🎓 **Student** | `student` | `student123` | Student view linked to **Aarav Sharma (STU101)**: View personal attendance, grades transcript, analytics |
 | 🎓 **Student (Alt)** | `student1` | `pass123` | Alternative student account (**John Doe**) |
 

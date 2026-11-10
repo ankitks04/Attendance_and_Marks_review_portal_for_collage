@@ -737,6 +737,16 @@ async function handleAddStudentSubmit(e) {
     return;
   }
 
+  if (!/^[a-zA-Z\s]+$/.test(payload.name)) {
+    showToast('Student name should contain only alphabets.', 'error');
+    return;
+  }
+
+  if (payload.phone && !/^\d+$/.test(payload.phone)) {
+    showToast('Phone number should contain only numbers.', 'error');
+    return;
+  }
+
   try {
     const res = await fetch('/api/students', {
       method: 'POST',
@@ -854,6 +864,21 @@ async function handleEditStudentSubmit(e) {
     semester: Number(document.getElementById('editStuSemester').value),
     gender: document.getElementById('editStuGender').value
   };
+
+  if (!payload.name || !payload.email || !payload.course) {
+    showToast('Please fill all required student details.', 'error');
+    return;
+  }
+
+  if (!/^[a-zA-Z\s]+$/.test(payload.name)) {
+    showToast('Student name should contain only alphabets.', 'error');
+    return;
+  }
+
+  if (payload.phone && !/^\d+$/.test(payload.phone)) {
+    showToast('Phone number should contain only numbers.', 'error');
+    return;
+  }
 
   try {
     const res = await fetch(`/api/students/${studentId}`, {
